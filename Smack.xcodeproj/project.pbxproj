@@ -14,6 +14,7 @@
 		39FB37C6221E4EE5007339A6 /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 39FB37C4221E4EE5007339A6 /* SWRevealViewController.m */; };
 		39FB37CB221E534C007339A6 /* ChatVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FB37CA221E534C007339A6 /* ChatVC.swift */; };
 		39FB37CD221E5371007339A6 /* ChannelVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FB37CC221E5371007339A6 /* ChannelVC.swift */; };
+		39FB37CF221ECBC1007339A6 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FB37CE221ECBC1007339A6 /* GradientView.swift */; };
 		8AD7D24C1A29D120D36B1176 /* Pods_Smack.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 228A670BE2F5A83E35E11759 /* Pods_Smack.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		39FB37C5221E4EE5007339A6 /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
 		39FB37CA221E534C007339A6 /* ChatVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatVC.swift; sourceTree = "<group>"; };
 		39FB37CC221E5371007339A6 /* ChannelVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChannelVC.swift; sourceTree = "<group>"; };
+		39FB37CE221ECBC1007339A6 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		50F272F35868A5021E199278 /* Pods-Smack.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smack.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Smack/Pods-Smack.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -110,6 +112,7 @@
 				39FB37B4221E4CC2007339A6 /* Main.storyboard */,
 				39FB37B7221E4CC3007339A6 /* Assets.xcassets */,
 				39FB37B9221E4CC3007339A6 /* LaunchScreen.storyboard */,
+				39FB37CE221ECBC1007339A6 /* GradientView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -251,6 +254,7 @@
 			files = (
 				39FB37CD221E5371007339A6 /* ChannelVC.swift in Sources */,
 				39FB37CB221E534C007339A6 /* ChatVC.swift in Sources */,
+				39FB37CF221ECBC1007339A6 /* GradientView.swift in Sources */,
 				39FB37B1221E4CC2007339A6 /* AppDelegate.swift in Sources */,
 				39FB37C6221E4EE5007339A6 /* SWRevealViewController.m in Sources */,
 			);
