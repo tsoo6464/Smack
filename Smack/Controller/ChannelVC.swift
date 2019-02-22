@@ -9,6 +9,9 @@
 import UIKit
 
 class ChannelVC: UIViewController {
+    // Outlets
+    @IBOutlet weak var loginBtn: UIButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,4 +19,10 @@ class ChannelVC: UIViewController {
         //SWRevealViewController.m的_initDefaultProperties方法裡有很多屬性可以更改
         self.revealViewController()?.rearViewRevealWidth = self.view.frame.size.width - 60
     }
+    // IBAction
+    @IBAction func loginBtnPressed(_ sender: Any) {
+        performSegue(withIdentifier: TO_LOGIN, sender: nil)
+    }
+    
+    
 }
