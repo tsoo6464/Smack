@@ -41,7 +41,7 @@ class AuthService{
             defaults.set(newValue, forKey: USER_EMAIL)
         }
     }
-    
+    // 註冊功能
     func registerUser(email: String, password: String, completion: @escaping CompletionHandler) {
         
         let lowerCaseEmail = email.lowercased()
