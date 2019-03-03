@@ -32,6 +32,5 @@ class RoundedButton: UIButton {
     //Step 3. 客制UI元件的方法 再讓 prepare 和 awake呼叫即可
     func setupView() {
         self.layer.cornerRadius = cornerRadius
-    }
-
+    }    
 }
