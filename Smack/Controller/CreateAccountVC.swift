@@ -24,13 +24,20 @@ class CreateAccountVC: UIViewController {
         super.viewDidLoad()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        if UserDataService.instance.avatarName != "" {
+            userImg.image = UIImage(named: UserDataService.instance.avatarName)
+            avatarName = UserDataService.instance.avatarName
+        }
+    }
+    
     // IBAction
     @IBAction func closeBtnPressed(_ sender: Any) {
         performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
     }
     
     @IBAction func pickAvatarBtnPressed(_ sender: Any) {
-        
+        performSegue(withIdentifier: TO_AVATAR_PICKER, sender: nil)
     }
     
     @IBAction func pickBGColorBtnPressed(_ sender: Any) {
