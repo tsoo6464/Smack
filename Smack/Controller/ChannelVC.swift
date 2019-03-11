@@ -30,7 +30,8 @@ class ChannelVC: UIViewController {
             userImg.backgroundColor = UserDataService.instance.returnUIColor(components: UserDataService.instance.avatarColor)
         } else {
             loginBtn.setTitle("Login", for: .normal)
-            userImg.image = UIImage(named: "menuProfileImage")
+            userImg.image = UIImage(named: "menuProfileIcon")
+            userImg.backgroundColor = UIColor.clear
         }
     }
     
@@ -38,7 +39,15 @@ class ChannelVC: UIViewController {
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {}
     
     @IBAction func loginBtnPressed(_ sender: Any) {
-        performSegue(withIdentifier: TO_LOGIN, sender: nil)
+        if AuthService.instance.isLoggedIn {
+            // 確認登入
+            let profileVC = ProfileVC()
+            profileVC.modalPresentationStyle = .custom
+            present(profileVC, animated: true, completion: nil)
+        } else {
+            // 尚未登入
+            performSegue(withIdentifier: TO_LOGIN, sender: nil)
+        }
     }
     
     
