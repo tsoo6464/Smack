@@ -21,6 +21,12 @@ class ChatVC: UIViewController {
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         // 在主視圖上增加點擊手勢可以隱藏菜單
         self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        // 確認是否為登入狀態 是的話就找到該用戶資料並發出廣播通知更新用戶資訊
+        if AuthService.instance.isLoggedIn {
+            AuthService.instance.findUserByEmail { (success) in
+                NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+            }
+        }
         
     }
 
