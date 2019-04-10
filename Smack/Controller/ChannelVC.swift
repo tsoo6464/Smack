@@ -24,6 +24,11 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         NotificationCenter.default.addObserver(self, selector: #selector(ChannelVC.userDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
         channelTableView.delegate = self
         channelTableView.dataSource = self
+        SocketService.instance.getChannel { (success) in
+            if success {
+                self.channelTableView.reloadData()
+            }
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -45,10 +50,6 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         
     }
-    
-    
-    
-    
     
     override func viewDidAppear(_ animated: Bool) {
         setUserInfo()
@@ -72,6 +73,15 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // IBAction
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {}
+    
+    @IBAction func addChannelBtnPressed(_ sender: Any) {
+        if AuthService.instance.isLoggedIn {
+            // 確認登入
+            let addChannelVC = AddChannelVC()
+            addChannelVC.modalPresentationStyle = .custom
+            present(addChannelVC, animated: true, completion: nil)
+        }
+    }
     
     @IBAction func loginBtnPressed(_ sender: Any) {
         if AuthService.instance.isLoggedIn {
