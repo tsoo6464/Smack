@@ -12,6 +12,7 @@ class ChatVC: UIViewController {
     
     // Outlets
     @IBOutlet weak var menuBtn: UIButton!
+    @IBOutlet weak var channelNameLbl: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,6 +22,9 @@ class ChatVC: UIViewController {
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
         // 在主視圖上增加點擊手勢可以隱藏菜單
         self.view.addGestureRecognizer(self.revealViewController().tapGestureRecognizer())
+        // 登入時獲取所有頻道
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.userDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChatVC.channelSelected(_:)), name: NOTIF_CHANNEL_SELECTED, object: nil)
         // 確認是否為登入狀態 是的話就找到該用戶資料並發出廣播通知更新用戶資訊
         if AuthService.instance.isLoggedIn {
             AuthService.instance.findUserByEmail { (success) in
@@ -29,12 +33,31 @@ class ChatVC: UIViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
+    @objc func channelSelected(_ notif: Notification) {
+        updateWithChannel()
+    }
+    
+    @objc func userDataDidChange(_ notif: Notification) {
         if AuthService.instance.isLoggedIn {
-            MessageService.instance.findAllChannel { (success) in
-                
+            // get channels
+            onLoginGetChannel()
+        } else {
+            channelNameLbl.text = "Please Log In"
+        }
+    }
+    
+    func updateWithChannel() {
+        let channelName = MessageService.instance.selectedChannel?.channelTitle ?? ""
+        channelNameLbl.text = "#\(channelName)"
+    }
+    
+    func onLoginGetChannel() {
+        MessageService.instance.findAllChannel { (success) in
+            if success {
+                // Do stuff with channels
             }
         }
     }
-
+    
+    
 }

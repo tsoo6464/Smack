@@ -22,6 +22,8 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.revealViewController()?.rearViewRevealWidth = self.view.frame.size.width - 60
         // 監聽若註冊成功的廣播發出 這裡會調用userDataDidChange的function
         NotificationCenter.default.addObserver(self, selector: #selector(ChannelVC.userDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
+        // 若接收到NOTIF_CHANNELS_LOADED的廣播，channelTableView就 reload data (收到代表有獲取到所有的channel)
+        NotificationCenter.default.addObserver(self, selector: #selector(ChannelVC.channelsLoaded(_:)), name: NOTIF_CHANNELS_LOADED, object: nil)
         channelTableView.delegate = self
         channelTableView.dataSource = self
         SocketService.instance.getChannel { (success) in
@@ -40,7 +42,6 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         if let cell = tableView.dequeueReusableCell(withIdentifier: CHANNEL_CELL, for: indexPath) as? ChannelCell {
             let channel = MessageService.instance.channels[indexPath.row]
             cell.configureCell(channel: channel)
@@ -48,7 +49,14 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         } else {
             return UITableViewCell()
         }
-        
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let channel = MessageService.instance.channels[indexPath.row]
+        MessageService.instance.selectedChannel = channel
+        NotificationCenter.default.post(name: NOTIF_CHANNEL_SELECTED, object: nil)
+        // 選擇頻道後關閉菜單
+        self.revealViewController()?.revealToggle(animated: true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -57,6 +65,10 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @objc func userDataDidChange(_ notif: Notification) {
         setUserInfo()
+    }
+    
+    @objc func channelsLoaded(_ notif: Notification) {
+        channelTableView.reloadData()
     }
     
     func setUserInfo() {
@@ -68,6 +80,7 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
             loginBtn.setTitle("Login", for: .normal)
             userImg.image = UIImage(named: "menuProfileIcon")
             userImg.backgroundColor = UIColor.clear
+            channelTableView.reloadData()
         }
     }
     
