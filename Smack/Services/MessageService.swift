@@ -16,6 +16,7 @@ class MessageService {
     
     var channels = [Channel]()
     var selectedChannel : Channel?
+    var messages = [Message]()
     // 獲取所有頻道
     func findAllChannel(completion: @escaping CompletionHandler) {
         
@@ -50,6 +51,37 @@ class MessageService {
                 completion(false)
             }
         }
+    }
+    
+    func findAllMessagesForChannel(channelId: String, completion: @escaping CompletionHandler) {
+        Alamofire.request("\(URL_FIND_MESSAGES_BY_CHANNEL)\(channelId)", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
+            if response.result.error == nil {
+                self.cleatMessages()
+                guard let data = response.data else { return }
+                if let json = JSON(data: data).array {
+                    for item in json {
+                        let messageBody = item["messageBody"].stringValue
+                        let id = item["_id"].stringValue
+                        let channelId = item["channelId"].stringValue
+                        let userName = item["userName"].stringValue
+                        let userAvatar = item["userAvatar"].stringValue
+                        let userAvatarColor = item["userAvatarColor"].stringValue
+                        let timeStamp = item["timeStamp"].stringValue
+                        let message = Message(messageBody: messageBody, id: id, channelId: channelId, userName: userName, userAvatar: userAvatar, userAvatarColor: userAvatarColor, timeStamp: timeStamp)
+                        self.messages.append(message)
+                    }
+                    print(self.messages)
+                    completion(true)
+                }
+            } else {
+                debugPrint(response.result.error as Any)
+                completion(false)
+            }
+        }
+    }
+    
+    func cleatMessages() {
+        messages.removeAll()
     }
     
     func clearChannels() {

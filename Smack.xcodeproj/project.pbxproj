@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3906281422670DDD0083D17D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3906281322670DDD0083D17D /* Message.swift */; };
 		390CC94422227AD8001C819B /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 390CC94322227AD8001C819B /* AuthService.swift */; };
 		3910A91622247AD20034810E /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3910A91522247AD20034810E /* RoundedButton.swift */; };
 		397BE884222CFE7000C7F35D /* AvatarPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 397BE883222CFE7000C7F35D /* AvatarPickerVC.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		20AC85FCAC03183C4FA900B5 /* Pods-Smack.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Smack.release.xcconfig"; path = "Pods/Target Support Files/Pods-Smack/Pods-Smack.release.xcconfig"; sourceTree = "<group>"; };
 		228A670BE2F5A83E35E11759 /* Pods_Smack.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Smack.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		3906281322670DDD0083D17D /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		390CC94322227AD8001C819B /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		3910A91522247AD20034810E /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		397BE883222CFE7000C7F35D /* AvatarPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarPickerVC.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 			isa = PBXGroup;
 			children = (
 				397BE890223A38C700C7F35D /* Channel.swift */,
+				3906281322670DDD0083D17D /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -335,6 +338,7 @@
 				39FB37CD221E5371007339A6 /* ChannelVC.swift in Sources */,
 				397BE884222CFE7000C7F35D /* AvatarPickerVC.swift in Sources */,
 				3910A91622247AD20034810E /* RoundedButton.swift in Sources */,
+				3906281422670DDD0083D17D /* Message.swift in Sources */,
 				397BE891223A38C700C7F35D /* Channel.swift in Sources */,
 				397BE8882231406800C7F35D /* CircleImage.swift in Sources */,
 				397BE88F223A389500C7F35D /* MessageService.swift in Sources */,
