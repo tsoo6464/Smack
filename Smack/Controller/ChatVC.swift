@@ -13,10 +13,14 @@ class ChatVC: UIViewController {
     // Outlets
     @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet weak var channelNameLbl: UILabel!
+    @IBOutlet weak var messageTxt: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // 將按鈕觸發事件連接到SWReveal彈出菜單
+        self.view.bindToKeyboard()
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ChatVC.handelTap))
+        self.view.addGestureRecognizer(tap)
         menuBtn.addTarget(self.revealViewController(), action: #selector(SWRevealViewController.revealToggle(_:)), for: .touchUpInside)
         // 在主視圖上增加滑動手勢可以跑出菜單
         self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
@@ -32,6 +36,26 @@ class ChatVC: UIViewController {
             }
         }
     }
+    
+    // Action
+    @IBAction func sendMsgBtnPressed(_ sender: Any) {
+        if AuthService.instance.isLoggedIn {
+            guard let messageBody = messageTxt.text, messageTxt.text != "" else { return }
+            guard let channelId = MessageService.instance.selectedChannel?.id else { return }
+            
+            SocketService.instance.addMessage(messageBody: messageBody, userId: UserDataService.instance.id, channelId: channelId) { (success) in
+                if success {
+                    self.messageTxt.text = ""
+                    self.messageTxt.resignFirstResponder()
+                }
+            }
+        }
+    }
+    
+    @objc func handelTap() {
+        view.endEditing(true)
+    }
+    
     
     @objc func channelSelected(_ notif: Notification) {
         updateWithChannel()
