@@ -37,6 +37,7 @@ let TO_AVATAR_PICKER = "toAvatarPicker"
 // Cell
 let AVATAR_CELL = "avatarCell"
 let CHANNEL_CELL = "ChannelCell"
+let MESSAGE_CELL = "messageCell"
 
 // User Defaults
 let TOKEN_KEY = "token"
