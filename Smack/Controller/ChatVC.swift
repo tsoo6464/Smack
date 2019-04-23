@@ -16,6 +16,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var messageTxt: UITextField!
     @IBOutlet weak var messageTableView: UITableView!
     @IBOutlet weak var sendBtn: UIButton!
+    @IBOutlet weak var typingUserLbl: UILabel!
     
     // variables
     var isTyping = false
@@ -47,6 +48,35 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 self.messageTableView.scrollToRow(at: endIndex, at: .bottom, animated: false)
             }
         }
+        
+        SocketService.instance.getTypingUsers { (typingUsers) in
+            guard let channelId = MessageService.instance.selectedChannel?.id else { return }
+            var names = ""
+            var numberOfTypers = 0
+            
+            for (typingUser, channel) in typingUsers {
+                if typingUser != UserDataService.instance.name && channel == channelId   {
+                    if names == "" {
+                        names = typingUser
+                    } else {
+                        names = "\(names), \(typingUser)"
+                    }
+                    numberOfTypers += 1
+                }
+            }
+            
+            if numberOfTypers > 0 && AuthService.instance.isLoggedIn == true {
+                var verb = "is"
+                if numberOfTypers > 1 {
+                    verb = "are"
+                }
+                self.typingUserLbl.text = "\(names) \(verb) typing a message"
+            } else {
+                self.typingUserLbl.text = ""
+            }
+            
+        }
+        
         // 確認是否為登入狀態 是的話就找到該用戶資料並發出廣播通知更新用戶資訊
         if AuthService.instance.isLoggedIn {
             AuthService.instance.findUserByEmail { (success) in
@@ -57,14 +87,18 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     // Action
     @IBAction func messageTxtEditingChange(_ sender: Any) {
+        guard let channelId = MessageService.instance.selectedChannel?.id else { return }
+        let userName = UserDataService.instance.name
         if messageTxt.text == "" {
             isTyping = false
             sendBtn.isHidden = true
+            SocketService.instance.socket.emit("stopType", userName)
         } else {
             if isTyping == false {
                 sendBtn.isHidden = false
             }
             isTyping = true
+            SocketService.instance.socket.emit("startType", userName, channelId)
         }
     }
     
@@ -77,6 +111,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 if success {
                     self.messageTxt.text = ""
                     self.messageTxt.resignFirstResponder()
+                    SocketService.instance.socket.emit("stopType", UserDataService.instance.name)
                 }
             }
         }
