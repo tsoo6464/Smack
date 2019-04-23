@@ -17,6 +17,7 @@ class MessageService {
     var channels = [Channel]()
     var selectedChannel : Channel?
     var messages = [Message]()
+    var unreadChannels = [String]()
     // 獲取所有頻道
     func findAllChannel(completion: @escaping CompletionHandler) {
         
