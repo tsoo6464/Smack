@@ -10,16 +10,18 @@ import UIKit
 
 class AddChannelVC: UIViewController {
 
-    // Outlets
+    //MARK: - Outlets
     @IBOutlet weak var bgView: UIView!
     @IBOutlet weak var nameTxt: UITextField!
     @IBOutlet weak var descriptionTxt: UITextField!
     
+    //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
     }
     
+    //MARK: - Function
     func setUpView() {
         nameTxt.attributedPlaceholder = NSAttributedString(string: "name", attributes: [NSAttributedString.Key.foregroundColor: SMACK_PURPLE_PLACEHOLDER])
         descriptionTxt.attributedPlaceholder = NSAttributedString(string: "description", attributes: [NSAttributedString.Key.foregroundColor: SMACK_PURPLE_PLACEHOLDER])
@@ -27,11 +29,12 @@ class AddChannelVC: UIViewController {
         bgView.addGestureRecognizer(tap)
     }
     
+    //MARK: - Objc
     @objc func closeTap(_ recognizer: UITapGestureRecognizer) {
         dismiss(animated: true, completion: nil)
     }
 
-    // Action
+    //MARK: - IBAction
     @IBAction func createChannelBtnPressed(_ sender: Any) {
         guard let name = nameTxt.text, nameTxt.text != "" else { return }
         guard let description = descriptionTxt.text, descriptionTxt.text != "" else { return }

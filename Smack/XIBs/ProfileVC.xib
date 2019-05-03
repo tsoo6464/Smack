@@ -77,6 +77,16 @@
                                 <action selector="logoutBtnPressed:" destination="-1" eventType="touchUpInside" id="Awt-vj-ZhU"/>
                             </connections>
                         </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DNW-C0-ws7">
+                            <rect key="frame" x="95.5" y="273.5" width="144" height="33"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="17"/>
+                            <state key="normal" title="Change username">
+                                <color key="titleColor" red="0.25882352939999997" green="0.3294117647" blue="0.72549019609999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="changeUsernameBtnPressed:" destination="-1" eventType="touchUpInside" id="LA1-dK-E19"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -85,8 +95,10 @@
                         <constraint firstItem="WNh-Jd-Ic9" firstAttribute="centerY" secondItem="4ac-Eb-p61" secondAttribute="centerY" constant="-20" id="Iqc-rd-Qwl"/>
                         <constraint firstItem="WNh-Jd-Ic9" firstAttribute="centerX" secondItem="4ac-Eb-p61" secondAttribute="centerX" id="Mob-15-LKC"/>
                         <constraint firstAttribute="trailing" secondItem="2XR-ok-v9n" secondAttribute="trailing" constant="8" id="PpH-Dz-dFY"/>
+                        <constraint firstItem="DNW-C0-ws7" firstAttribute="top" secondItem="WNh-Jd-Ic9" secondAttribute="bottom" constant="8" id="RX9-0l-QM9"/>
                         <constraint firstAttribute="bottom" secondItem="UBF-20-SpX" secondAttribute="bottom" constant="8" id="bgh-NE-1GR"/>
                         <constraint firstAttribute="height" constant="360" id="ipt-na-WXh"/>
+                        <constraint firstItem="DNW-C0-ws7" firstAttribute="centerX" secondItem="4ac-Eb-p61" secondAttribute="centerX" id="xQc-UL-pRl"/>
                     </constraints>
                 </view>
             </subviews>

@@ -10,7 +10,7 @@ import UIKit
 
 class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // Outlets
+    //MARK: - Outlets
     @IBOutlet weak var menuBtn: UIButton!
     @IBOutlet weak var channelNameLbl: UILabel!
     @IBOutlet weak var messageTxt: UITextField!
@@ -18,9 +18,10 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var sendBtn: UIButton!
     @IBOutlet weak var typingUserLbl: UILabel!
     
-    // variables
+    //MARK: - Variables
     var isTyping = false
     
+    //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
         messageTableView.delegate = self
@@ -88,7 +89,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    // Action
+    //MARK: - IBAction
     @IBAction func messageTxtEditingChange(_ sender: Any) {
         guard let channelId = MessageService.instance.selectedChannel?.id else { return }
         let userName = UserDataService.instance.name
@@ -120,6 +121,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    //MARK: - Objc
     @objc func handelTap() {
         view.endEditing(true)
     }
@@ -139,6 +141,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    //MARK: - Function
     func updateWithChannel() {
         let channelName = MessageService.instance.selectedChannel?.channelTitle ?? ""
         channelNameLbl.text = "#\(channelName)"
@@ -167,7 +170,7 @@ class ChatVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    // MARK: TableView Methods
+    // MARK: - TableView Methods
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: MESSAGE_CELL, for: indexPath) as? MessageCell {
             let message = MessageService.instance.messages[indexPath.row]

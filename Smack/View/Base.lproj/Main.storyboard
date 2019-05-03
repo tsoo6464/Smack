@@ -434,6 +434,7 @@
                         <viewLayoutGuide key="safeArea" id="y4x-UW-Kca"/>
                     </view>
                     <connections>
+                        <outlet property="createAccountBtn" destination="TQd-cj-jni" id="meY-SU-VRi"/>
                         <outlet property="emailTxt" destination="cMf-kO-BP6" id="jrR-Gd-ibl"/>
                         <outlet property="passwordTxt" destination="42y-Ai-Q2x" id="7kj-9F-tti"/>
                         <outlet property="spinner" destination="DGl-c2-eFj" id="gxO-3a-1Ph"/>

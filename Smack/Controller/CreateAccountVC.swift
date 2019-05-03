@@ -10,18 +10,20 @@ import UIKit
 
 class CreateAccountVC: UIViewController {
 
-    // Outlets
+    //MARK: - Outlets
     @IBOutlet weak var usernameTxt: UITextField!
     @IBOutlet weak var emailTxt: UITextField!
     @IBOutlet weak var passwordTxt: UITextField!
     @IBOutlet weak var userImg: UIImageView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var createAccountBtn: RoundedButton!
     
-    // Variables
+    //MARK: - Variables
     var avatarName = "profileDefault"
     var avatarColor = "[0.5, 0.5, 0.5, 1]"
     var bgColor: UIColor?
     
+    //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
@@ -37,7 +39,7 @@ class CreateAccountVC: UIViewController {
         }
     }
     
-    // IBAction
+    //MARK: - IBAction
     @IBAction func closeBtnPressed(_ sender: Any) {
         performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
     }
@@ -66,6 +68,7 @@ class CreateAccountVC: UIViewController {
         
         spinner.isHidden = false
         spinner.startAnimating()
+        createAccountBtn.isEnabled = false
         
         AuthService.instance.registerUser(email: email, password: password) { (success) in
             if success {
@@ -75,6 +78,7 @@ class CreateAccountVC: UIViewController {
                             if success {
                                 self.spinner.isHidden = true
                                 self.spinner.stopAnimating()
+                                self.createAccountBtn.isEnabled = true
                                 self.performSegue(withIdentifier: UNWIND_TO_CHANNEL, sender: nil)
                                 // 發出廣播告知用戶註冊完成
                                 NotificationCenter.default.post(name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
@@ -85,7 +89,7 @@ class CreateAccountVC: UIViewController {
             }
         }
     }
-    
+    //MARK: - Function
     func setUpView() {
         spinner.isHidden = true
         // 設定textfield的提示字顏色
@@ -96,7 +100,7 @@ class CreateAccountVC: UIViewController {
         let tap = UITapGestureRecognizer(target: self, action: #selector(CreateAccountVC.handleTap))
         view.addGestureRecognizer(tap)
     }
-    
+    //MARK: - Objc
     @objc func handleTap() {
         view.endEditing(true)
     }

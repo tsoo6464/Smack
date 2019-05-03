@@ -10,16 +10,18 @@ import UIKit
 
 class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    // Outlets
+    //MARK: - Outlets
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var userImg: CircleImage!
     @IBOutlet weak var channelTableView: UITableView!
     
+    //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
         //設定菜單跑出來的寬度
         //SWRevealViewController.m的_initDefaultProperties方法裡有很多屬性可以更改
         self.revealViewController()?.rearViewRevealWidth = self.view.frame.size.width - 60
+        NotificationCenter.default.addObserver(self, selector: #selector(ChannelVC.userDataDidChange(_:)), name: NOTIF_USERNAME_UPDATE, object: nil)
         // 監聽若註冊成功的廣播發出 這裡會調用userDataDidChange的function
         NotificationCenter.default.addObserver(self, selector: #selector(ChannelVC.userDataDidChange(_:)), name: NOTIF_USER_DATA_DID_CHANGE, object: nil)
         // 若接收到NOTIF_CHANNELS_LOADED的廣播，channelTableView就 reload data (收到代表有獲取到所有的channel)
@@ -40,6 +42,11 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        setUserInfo()
+    }
+    
+    //MARK: - TableView methods
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -74,10 +81,7 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.revealViewController()?.revealToggle(animated: true)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        setUserInfo()
-    }
-    
+    //MARK: - Objc
     @objc func userDataDidChange(_ notif: Notification) {
         setUserInfo()
     }
@@ -86,6 +90,7 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         channelTableView.reloadData()
     }
     
+    //MARK: - Function
     func setUserInfo() {
         if AuthService.instance.isLoggedIn {
             loginBtn.setTitle(UserDataService.instance.name, for: .normal)
@@ -99,7 +104,7 @@ class ChannelVC: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
-    // IBAction
+    //MARK: - IBAction
     @IBAction func prepareForUnwind(segue: UIStoryboardSegue) {}
     
     @IBAction func addChannelBtnPressed(_ sender: Any) {

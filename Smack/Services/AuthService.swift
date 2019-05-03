@@ -107,11 +107,6 @@ class AuthService{
         
         let lowerCaseEmail = email.lowercased()
         
-        let header = [
-            "Authorization": "Bearer \(AuthService.instance.authToken)",
-            "Content-Type": "application/json; charset=utf-8"
-        ]
-        
         let body: [String: Any] = [
             "name": name,
             "email": lowerCaseEmail,
@@ -119,7 +114,7 @@ class AuthService{
             "avatarColor" : avatarColor
         ]
         // 建立用戶資料
-        Alamofire.request(URL_USER_ADD, method: .post, parameters: body, encoding: JSONEncoding.default, headers: header).responseJSON { (response) in
+        Alamofire.request(URL_USER_ADD, method: .post, parameters: body, encoding: JSONEncoding.default, headers: BEARER_HEADER).responseJSON { (response) in
             
             if response.result.error == nil {
                 guard let data = response.data else { return }
@@ -157,5 +152,28 @@ class AuthService{
         
         UserDataService.instance.setUserData(id: id, name: name, email: email, avatarColor: avatarColor, avatarName: avatarName)
     }
+    
+    func updateUserName(name: String, uid: String, completion: @escaping CompletionHandler) {
+        
+        let userData = UserDataService.instance
+        
+        let body: [String: Any] = [
+            "name": name,
+            "email": userData.email,
+            "avatarName": userData.avatarName,
+            "avatarColor" : userData.avatarColor
+        ]
+        
+        Alamofire.request("\(URL_UPDATE_USERNAME)\(uid)", method: .put, parameters: body, encoding: JSONEncoding.default, headers: BEARER_HEADER).response { (response) in
+            if response.error == nil {
+                UserDataService.instance.setUserData(id: userData.id, name: name, email: userData.email, avatarColor: userData.avatarColor, avatarName: userData.avatarName)
+                completion(true)
+            } else {
+                debugPrint(response.error as Any)
+                completion(false)
+            }
+        }
+    }
+    
     
 }

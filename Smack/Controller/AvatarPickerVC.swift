@@ -10,20 +10,21 @@ import UIKit
 
 class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
-    // Outlets
+    //MARK: - Outlets
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
-    // Varaibles
+    //MARK: - Varaibles
     var avatarType = AvatarType.dark
     
+    //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
         collectionView.dataSource = self
     }
     
-    // Collection
+    //MARK: - Collection methods
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: AVATAR_CELL, for: indexPath) as? AvatarCell {
             cell.configureCell(index: indexPath.item, type: avatarType)
@@ -60,7 +61,7 @@ class AvatarPickerVC: UIViewController, UICollectionViewDelegate, UICollectionVi
         dismiss(animated: true, completion: nil)
     }
     
-    // Action
+    //MARK: - IBAction
     @IBAction func segmentControlChanged(_ sender: Any) {
         avatarType = (segmentControl.selectedSegmentIndex == 0) ? .dark : .light
         collectionView.reloadData()

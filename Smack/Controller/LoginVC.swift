@@ -10,23 +10,25 @@ import UIKit
 
 class LoginVC: UIViewController {
 
-    // Outlets
+    //MARK: - Outlets
     @IBOutlet weak var userEmailTxt: UITextField!
     @IBOutlet weak var passwordTxt: UITextField!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    //MARK: - Override
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpView()
     }
     
+    //MARK: - Function
     func setUpView() {
         userEmailTxt.attributedPlaceholder = NSAttributedString(string: "email", attributes: [NSAttributedString.Key.foregroundColor: SMACK_PURPLE_PLACEHOLDER])
         passwordTxt.attributedPlaceholder = NSAttributedString(string: "password", attributes: [NSAttributedString.Key.foregroundColor: SMACK_PURPLE_PLACEHOLDER])
         spinner.isHidden = true
     }
     
-    // IBAction
+    //MARK: - IBAction
     @IBAction func closeBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
