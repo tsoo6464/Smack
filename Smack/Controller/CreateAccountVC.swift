@@ -36,7 +36,7 @@ class CreateAccountVC: UIViewController {
             if avatarName.contains("light") {
                 self.userImg.backgroundColor = UIColor.lightGray
             }
-        }
+        }	
     }
     
     //MARK: - IBAction
